@@ -6,6 +6,7 @@ const refs = {
   btnSubEl: document.querySelector('.btn-search'),
   formEl: document.querySelector('.form'),
   input: document.querySelector('input'),
+  ul: document.querySelector('ul'),
 };
 
 refs.formEl.addEventListener('submit', evt => {
@@ -13,11 +14,6 @@ refs.formEl.addEventListener('submit', evt => {
   if (refs.input.value.trim()) {
     searchImages(refs.input.value.trim());
     refs.input.value = '';
-
-    document.body.insertAdjacentHTML(
-      'beforeend',
-      '<div id="loader" class="loader" ></div>',
-    );
   } else {
     iziToast.error({
       message: 'Please fill in the input field',

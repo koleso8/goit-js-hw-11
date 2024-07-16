@@ -6,6 +6,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import SimpleLightbox from 'simplelightbox';
 
 export function searchImages(value) {
+  const form = document.querySelector('.form');
+  form.insertAdjacentHTML('afterend', '<div id="loader" class="loader"></div>');
   const params = new URLSearchParams({
     key: '44959261-ea439a2adbf8f7e5770dfe1a3',
     q: value,
@@ -27,8 +29,6 @@ export function searchImages(value) {
         renderImg(response.hits);
         let gallery = new SimpleLightbox('.gallery a');
         gallery.refresh();
-        let loader = document.getElementById('loader');
-        loader.style.display = 'none';
       } else {
         iziToast.error({
           message: 'Image is not found',
@@ -36,5 +36,8 @@ export function searchImages(value) {
         });
       }
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
+    .finally(() => {
+      document.querySelector('.loader').remove();
+    });
 }
