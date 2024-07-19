@@ -17,27 +17,10 @@ export function searchImages(value) {
     per_page: 20,
   });
   const baseUrl = 'https://pixabay.com/api/';
-  fetch(`${baseUrl}?${params}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .then(response => {
-      if (response.total !== 0) {
-        renderImg(response.hits);
-        let gallery = new SimpleLightbox('.gallery a');
-        gallery.refresh();
-      } else {
-        iziToast.error({
-          message: 'Image is not found',
-          position: 'topRight',
-        });
-      }
-    })
-    .catch(error => console.log(error))
-    .finally(() => {
-      document.querySelector('.loader').remove();
-    });
+  return fetch(`${baseUrl}?${params}`).then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  });
 }
